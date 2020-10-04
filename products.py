@@ -1,4 +1,13 @@
+# 讀取檔案
 products = []
+with open('products.csv', 'r', encoding = 'utf-8') as f:
+    for line in f:
+        if '商品,價格' in line:
+            continue
+        name, price = line.strip().split(',') #刪去換行符號後做切割,存入name跟price清單
+        products.append([name, price])  #建立二維清單中的小清單
+
+# 讓使用者輸入
 while True:
     name = input('請輸入商品名稱: ')
     if name == 'q':
@@ -7,6 +16,7 @@ while True:
     products.append([name, price])  #建立二維清單中的小清單
 print(products)
 
+# 印出所有購買紀錄
 for p in products:
     print(p[0], '的價格是', p[1])
 #for p in products:
@@ -14,6 +24,7 @@ for p in products:
 #for p in products:
     #print(p[0]) #印出每個小清單的第0項
 
+# 寫入檔案
 with open('products.csv', 'w', encoding = 'utf-8') as f: #如果已經有同名的檔案存在,會直接覆蓋掉，沒有則自動生成
     f.write('商品,價格\n') #在文件第一行產生商品及價格欄位
     for p in products:
